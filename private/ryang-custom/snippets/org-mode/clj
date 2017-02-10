@@ -1,0 +1,7 @@
+# -*- mode: org -*-
+# name: clj
+# key: clj
+# --
+#+begin_src clojure ${1:options} :results pp
+$0
+#+end_src

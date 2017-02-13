@@ -15,3 +15,5 @@
 (setq mac-command-key-is-meta t)
 (setq mac-option-key-is-meta nil)
 (setq default-input-method "MacOSX")
+
+(subword-mode t)

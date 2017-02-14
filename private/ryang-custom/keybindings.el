@@ -1,7 +1,7 @@
 (global-set-key [f2] 'find-name-dired)
 (global-set-key [f6] 'find-grep)
 (global-set-key [f7] 'replace-string)
-(global-set-key [(control x) (control k)] 'kill-this-buffer)
+(global-set-key [(control x) (k)] 'kill-this-buffer)
 (global-set-key [(control x) (control y)] 'browse-kill-ring)
 (global-set-key (kbd "C-f") 'forward-word)
 (global-set-key (kbd "C-b") 'backward-word)

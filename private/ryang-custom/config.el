@@ -16,4 +16,18 @@
 (setq mac-option-key-is-meta nil)
 (setq default-input-method "MacOSX")
 
+(setq elfeed-feeds
+      '(("http://martinfowler.com/feed.atom" tech)
+        ("http://feeds.feedburner.com/SanityInc" tech)
+        ("http://blog.guillermowinkler.com/atom.xml" tech)
+        ("http://feed.codeofrob.com/RobAshton" tech)
+        ("http://blog.8thlight.com/feed/atom.xml" tech bob)
+        ("http://feeds2.feedburner.com/StuartSierra" tech bob)
+        ("http://www.oursteps.com.au/bbs/forum.php?mod=rss&fid=89&auth=3f702nWzBrApV5bHyKdRBOPcQJqHLck4M5lXD%2F0W%2BG0mOJT7rUWeGhMaCFvIBQ" portal shop)
+        ("https://www.thekua.com/atwork/" tech)
+        ("https://www.oursteps.com.au/bbs/forum.php?mod=rss&fid=109&auth=bd292ZqcUidYHDNXRLIbL0%2BjQQmv8ELbVh5wVEi8AUeCSvXyBLy5HilZ1m%2FPZ5A" car)
+        ))
+
+(setq dired-listing-switches "-alh")
+
 (subword-mode t)

@@ -1,4 +1,4 @@
-(set-face-attribute 'default nil :height 200)
+(set-face-attribute 'default nil :height 160)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq tab-width 2)

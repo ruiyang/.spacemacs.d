@@ -16,3 +16,4 @@
 (global-unset-key "\C-x\C-c")
 (global-unset-key "\C-x\C-z")
 
+(global-set-key (kbd "C-x C-f") 'ido-find-file)

@@ -104,3 +104,7 @@ by using nxml's indentation rules."
   "Remove all blank lines in the buffer."
   (interactive)
   (flush-lines "^$"))
+
+(if (and (fboundp 'server-running-p) 
+         (not (server-running-p)))
+    (server-start))

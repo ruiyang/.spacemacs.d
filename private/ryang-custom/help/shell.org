@@ -176,3 +176,6 @@ docker rm $(docker ps -a -q)
 * Splunk
 ** Stats on a load of a specific URL
 index="idnex-name" "validate_security" | bucket _time span=1m | stats count by sourcetype,_time
+* Ubuntu/i3
+** disable a display
+xrandr --output VGA-1-2 --off

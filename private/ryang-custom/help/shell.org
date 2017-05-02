@@ -179,3 +179,20 @@ index="idnex-name" "validate_security" | bucket _time span=1m | stats count by s
 * Ubuntu/i3
 ** disable a display
 xrandr --output VGA-1-2 --off
+* Postgresql Docker
+** connect to psql
+docker run -it --rm --link postgres:postgres postgres psql -h postgres -U postgres
+** select a db
+you need to close current db connection and open a new one. use:
+\c <new-db-name>
+
+* Citrix
+** config sound
+/opt/Citrix/ICAClient/util/configmgr &
+If the above not working
+sudo apt-get install alsa-oss
+sudo mv /opt/Citrix/ICAClient/wfica /opt/Citrix/ICAClient/wfica-real
+create a bash file /opt/Citrix/ICAClient/wfica with
+#!/bin/bash
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libaoss.so /opt/Citrix/ICAClient/wfica-real "$@"
+sudo chmod +x /opt/Citrix/ICAClient/wfica

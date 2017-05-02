@@ -31,3 +31,5 @@
 (setq dired-listing-switches "-alh")
 
 (subword-mode t)
+
+(add-hook 'clojure-mode-hook #'enable-paredit-mode)

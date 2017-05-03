@@ -33,3 +33,14 @@
 (subword-mode t)
 
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+
+(if (equal system-type 'windows-nt)
+    (progn (setq explicit-shell-file-name
+                 "C:/Program Files/Git/bin/sh.exe")
+           (setq shell-file-name "bash")
+           (setq explicit-sh-args '("-login" "-i"))
+           (setq binary-process-input t)
+           (setq w32-quote-process-args ?\")
+           (setq explicit-sh-args '("--login" "-i"))
+           (setenv "SHELL" shell-file-name)
+           (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)))

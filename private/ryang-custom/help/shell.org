@@ -157,6 +157,136 @@ create database <db>
 * find
   - recursively rename files
   find . -name 'productcatalogapi.properties' -exec bash -c 'mv $0 ${0/productcatalogapi.properties}core-services.properties' {} \;
+find command: 15 examples to exclude directories using prune
+
+  
+
+   When we search for files in Unix/Linux using the find command, we might want to search for files only in some specific directories, OR to search in all directories except a particular directory and so on.  prune option in the find command is the one for excluding a directory within a directory tree. In this article of find command, we will use how to use the prune option of the find command to exclude directories with some examples.
+
+The simple find command below lists all the files and directories in the directory tree. The . indicates the path to search for the files. We will see the usage of prune using this directory tree:
+$ find .
+.
+./area.pm
+./C
+./C/temp
+./C/f2.c
+./test.c
+./temp
+./temp/a.c
+The functionality of prune is simple: "If the file is a directory, do not descend or traverse into it." Sounds simple, isn't it? Let us see some examples:
+
+1. Prune usage: 
+$ find . -prune
+.
+The find command works like this: It starts finding files from the path provided in the command which in this case is the current directory(.). From here, it traverses through all the files in the entire tree and prints those files matching the criteria specified. -prune will not allow the find command to descend into the file any further if it is a directory. Hence, when find starts with the current directory, prune does not allow it to descend the current directory since it itself is a directory, and hence only the current directory gets printed, not the files within the directory. The print happens here because it is the default functionality of find to print anything which is true. 
+
+2. Find all files and directories present only in the current directory (Simulation of ls command). 
+$ find . ! -name . -prune
+./area.pm
+./C
+./test.c
+./temp      
+   "! -name . " means any file other than current dirctory. So, prune will prune all the directories other than the current directory. Hence, this will end up not allowing find to descend into any sub-directory in the current directory, as a result, we get all the files and directories present in the path specified. 
+
+3. Same as above using another option: 
+$ find ./* -prune
+./area.pm
+./CPP
+./temp
+./test.c
+Keep in mind, the find command accepts a path or a series of paths to search. This ./* gets translated to all the files and directories in the current directory. So, from this list, prune will prevent from descending into the sub-directories. Note: This approach is not recommended, because i) we are supposed to give only directories in the search path of find, ii) if the list of files and directories is huge, the command will have performance issues. 
+
+4. Find all files and directories other than the file named temp: 
+$ find . -name temp -prune
+./C/temp
+./temp
+'-name temp' tells to search for all files with the name temp. prune tells not to traverse into directories named temp. Hence, the output is list of all files and directories with the name temp. What prune achieved here is had there been a file with the name temp inside any temp directory, it would not have got printed. 
+
+5. Find all the files except the ones under the temp directory: 
+$ find . -name temp -prune -o -print
+.
+./area.pm
+./C
+./C/f2.c
+./test.c
+-o is the OR operator. find will prune directories named temp. Due to the OR condition, all the other files(files other than the ones present in the temp directory) gets printed.
+   Did you expect the temp directory to get printed? In the last example, we saw the directories ./temp and ./C/temp got printed, but not now. This is the effect of the -print option. By default, the find command prints all the files matching the criteria. However, once the -print option is specified, it will print files only on explicit print instructions. In this find command, -print is associated in the other side of the OR condition, and hence nothing will get printed from the 1st part of the condition. 
+
+6. Find all the files except the ones under the temp directory. Also print the temp directories if present: 
+$ find . -name temp -prune -print -o -print
+.
+./area.pm
+./C
+./C/temp
+./C/f2.c
+./test.c
+./temp
+The only difference here is the print statement being present in the first half as well.
+
+7. Find all the .c files except the ones present in the C directory: 
+$ find . -type d -name C -prune -o -name "*.c" -print
+./test.c
+./temp/a.c
+  The 1st part prunes out the C directories. In the second part,  all the .c files are found and printed except the ones present in C.
+
+8. Find all the .c files except the ones present in the C and temp directory: 
+$ find . -type d \( -name C -o -name temp \) -prune -o -name "*.c" -print
+./test.c
+   To specify multiple directories with the -name option, -o should be used as an OR condition.
+
+9. Find all files modified in the last one day except the ones present in the temp directory: 
+$ find . -type d  -name temp -prune -o -mtime -1 -print
+.
+./area.pm
+./C
+./C/temp
+./C/f2.c
+./test.c
+Usage of mtime makes find to search for files modified in the last day alone.
+
+10. Find only regular files modified in the last one day except the ones present in the temp directory: 
+$ find . -type d  -name temp -prune -o  -type f -mtime -1 -print
+./area.pm
+./C/temp
+./C/f2.c
+./test.c
+Using the -type f option, find will find only the regular files alone.
+
+11. Find all files whose permission is 644 except the ones present in the temp directory: 
+$ find . -name "temp" -prune -o -perm 644 -print
+./area.pm
+./C/f2.c
+  -perm option in find allows to find files with specific permissions. permission 644 indicates files with permission rw-r--r--.
+
+12. Same using the wholename option and prune to exclude directory: 
+$ find . -wholename "./temp" -prune -o -perm 644 -print
+./area.pm
+./C/temp
+./C/f2.c
+find has a switch with the name 'wholename'. Say, in your directory tree, there might be more than one temp directory. The earlier approaches will prune all the temp dierctories. In case, if the requirement is to prune a specific temp directory, then you can give the path of the directory itself. Note: The path specified in the wholename option should be relative to the search path specified, not the absolute path. 
+
+ 13. Using exec and prune to exclude directory in-place of name: 
+$ find . -name temp -exec test '{}' = "./temp" \; -prune -o -perm 644 -print
+./area.pm
+./C/temp
+./C/f2.c
+One more way. Using the exec, a condition can be put to check whether the current file is "temp". If so, prune it. '{}' is the file found by the find command.
+
+ 14. Using inum and prune to exclude directory in-place of name option: 
+$ find .  -inum 17662059 -prune -o -perm 644 -print
+./area.pm
+./C/temp
+./C/f2.c
+Same, but using the inode number of the temp directory. inode number is specified using the inum option.
+
+ 15. Find the list of all .c files except the ones present in the C directory without using prune:
+$ find . ! -path "./C/*" -name "*.c"
+./test.c
+./temp/a.c
+-path option is like the -wholename option. It is used to specify a specific path to search. In this case, '! -path " tells to exclude this path alone. Since the specific path has been excluded in this way, the prune is not needed at all. 
+
+P.S: The find command options maxdepth and mindepth also help in controlling the descending of directories to a certain extent. We will discuss about this in one of our future articles.
+
 * docker
 ** POSTGRES_PASSWORD= POSTGRES_USER= docker build -t youyougou:0.1.1 .
 ** POSTGRES_PASSWORD= POSTGRES_USER= docker run -p 127.0.0.1:5432:5432 --name test youyougou:0.1.1

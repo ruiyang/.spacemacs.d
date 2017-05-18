@@ -33,6 +33,7 @@
 (subword-mode t)
 
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+<<<<<<< d0ab836bb6ad9ce04fd8c90a7f70a5fb7ad45fcf
 
 (if (equal system-type 'windows-nt)
     (progn (setq explicit-shell-file-name
@@ -44,3 +45,5 @@
            (setq explicit-sh-args '("--login" "-i"))
            (setenv "SHELL" shell-file-name)
            (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)))
+
+(add-hook 'clojurescript-mode-hook #'enable-paredit-mode)

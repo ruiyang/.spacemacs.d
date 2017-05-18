@@ -326,3 +326,7 @@ create a bash file /opt/Citrix/ICAClient/wfica with
 #!/bin/bash
 LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libaoss.so /opt/Citrix/ICAClient/wfica-real "$@"
 sudo chmod +x /opt/Citrix/ICAClient/wfica
+* Emacs
+  - start in ubuntu to enable IME
+env LC_CTYPE=zh_CN.UTF-8 emacs
+

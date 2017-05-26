@@ -312,6 +312,7 @@ xrandr --output VGA-1-2 --off
 * Postgresql Docker
 ** connect to psql
 docker run -it --rm --link postgres:postgres postgres psql -h postgres -U postgres
+docker run --name postgres -e POSTGRES_PASSWORD=pedestal-rest postgres -d youyougou
 ** select a db
 you need to close current db connection and open a new one. use:
 \c <new-db-name>

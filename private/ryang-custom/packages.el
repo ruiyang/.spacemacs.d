@@ -4,9 +4,5 @@
     ))
 
 (defun ryang-custom/init-revive ()
-  (use-package revive
-    :config
-    (progn
-      (if (file-exists-p "~/.revive.el")
-          (resume)))))
+  (use-package revive))
 

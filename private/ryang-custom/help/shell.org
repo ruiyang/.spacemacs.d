@@ -317,6 +317,11 @@ docker run --name postgres -e POSTGRES_PASSWORD=pedestal-rest postgres -d youyou
 you need to close current db connection and open a new one. use:
 \c <new-db-name>
 
+** postgis
+   - connect
+docker run -it --link some-postgis:postgres --rm postgres \
+    sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
+postgis
 * Citrix
 ** config sound
 /opt/Citrix/ICAClient/util/configmgr &

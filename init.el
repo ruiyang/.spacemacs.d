@@ -314,6 +314,7 @@ you should place your code here."
       (progn
         (setq projectile-enable-caching t)
         (setq projectile-indexing-method 'alien)))
+  (require 'projectile)
   (projectile-register-project-type 'npm '("package.json")
                                     :compile "yarn install --pure-lockfile"
                                     :test "yarn run test"

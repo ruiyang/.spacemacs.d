@@ -27,6 +27,7 @@
         ("https://www.thekua.com/atwork/" tech)
         ("https://www.oursteps.com.au/bbs/forum.php?mod=rss&fid=109&auth=bd292ZqcUidYHDNXRLIbL0%2BjQQmv8ELbVh5wVEi8AUeCSvXyBLy5HilZ1m%2FPZ5A" car)
         ("http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml" tech emacs)
+        ("http://sachachua.com/blog/category/emacs-news/feed/" tech emacs)
         ))
 
 (setq dired-listing-switches "-alh")

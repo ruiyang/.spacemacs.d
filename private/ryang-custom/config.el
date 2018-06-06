@@ -25,9 +25,9 @@
         ("http://feeds2.feedburner.com/StuartSierra" tech bob)
         ("http://www.oursteps.com.au/bbs/forum.php?mod=rss&fid=89&auth=3f702nWzBrApV5bHyKdRBOPcQJqHLck4M5lXD%2F0W%2BG0mOJT7rUWeGhMaCFvIBQ" portal shop)
         ("https://www.thekua.com/atwork/" tech)
-        ("https://www.oursteps.com.au/bbs/forum.php?mod=rss&fid=109&auth=bd292ZqcUidYHDNXRLIbL0%2BjQQmv8ELbVh5wVEi8AUeCSvXyBLy5HilZ1m%2FPZ5A" car)
         ("http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml" tech emacs)
         ("http://sachachua.com/blog/category/emacs-news/feed/" tech emacs)
+        ("https://scotthelme.co.uk/rss/" tech security)
         ))
 
 (setq dired-listing-switches "-alh")

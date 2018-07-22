@@ -332,8 +332,7 @@ you should place your code here."
                               (setq c-basic-offset 2)))
   (with-eval-after-load 'org
     ;; here goes your Org config :)
-    (defconst org-folder "~/Dropbox/Org/current")
-    (setq org-agenda-files org-folder)
+    (setq org-agenda-files `("~/Dropbox/Org/current"))
     (setq org-todo-keywords
           (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                   (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))

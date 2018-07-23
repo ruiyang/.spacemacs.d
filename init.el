@@ -348,7 +348,7 @@ you should place your code here."
     (setq org-use-fast-todo-selection t)
     (setq org-capture-templates
           (quote (("t" "todo" entry (file  "~/Dropbox/Org/current/refile.org")
-                   "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                   "* TODO %?\n%U\n\n" :clock-in t :clock-resume t)
                   ("r" "respond" entry (file  "~/Dropbox/Org/current/refile.org")
                    "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
                   ("n" "note" entry (file "~/Dropbox/Org/current/refile.org")

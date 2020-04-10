@@ -51,9 +51,6 @@ values."
      git
      markdown
      org
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
      spell-checking
      syntax-checking
      version-control
@@ -67,7 +64,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(browse-kill-ring elfeed add-node-modules-path restclient company-restclient)
+   dotspacemacs-additional-packages '(browse-kill-ring elfeed add-node-modules-path restclient company-restclient groovy-mode request)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -312,6 +309,10 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq epa-pinentry-mode 'loopback)
+  (setq shell-file-name "/usr/local/bin/zsh")
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
   (if (file-exists-p "~/.revive.el")
       (resume))
   (if (string-equal system-type "windows-nt")
@@ -329,6 +330,7 @@ you should place your code here."
   (setq org-default-notes-file "~/Dropbox/Org/capture.org")
   (setq org-agenda-files (list "~/Dropbox/Org/note.org"
                                "~/Dropbox/Org/capture.org"))
+
   (add-hook 'java-mode-hook (lambda ()
                               (setq c-basic-offset 2)))
   (with-eval-after-load 'org
@@ -404,5 +406,19 @@ you should place your code here."
   (require 'company-restclient) 
   (add-hook 'restclient-mode-hook (lambda () (company-mode t)
                                     (add-to-list 'company-backends 'company-restclient)))
+  (setq-default typescript-indent-level 2)
   )
-
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (yapfify yaml-mode ws-butler winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide tagedit sql-indent spaceline smex smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download open-junk-file neotree move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint json-mode js2-refactor js-doc ivy-hydra indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make groovy-mode google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flyspell-correct-ivy flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu emmet-mode elisp-slime-nav elfeed dumb-jump drupal-mode diminish diff-hl define-word cython-mode csv-mode counsel-projectile company-web company-tern company-statistics company-restclient company-anaconda column-enforce-mode coffee-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler browse-kill-ring auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent add-node-modules-path adaptive-wrap ace-window ace-link ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

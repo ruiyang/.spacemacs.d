@@ -117,6 +117,10 @@ fix: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && s
   - php --ini show loaded config
   - restart webserver after restart
 * mysql
+** mysql 5.6
+   - change root password
+SET PASSWORD = PASSWORD('your_new_password');
+SET PASSWORD FOR 'spring'@'172.17.0.1' = PASSWORD('bootjpa');
   - mysql -h localhost -u wordpress -p
 ** remove mysql ubuntu
 sudo apt-get remove --purge mysql-server mysql-client mysql-common
@@ -129,15 +133,21 @@ sudo rm -rf /var/lib/mysql
 sudo apt-get purge mysql-server-core-5.5
 sudo apt-get purge mysql-client-core-5.5
 ** create user
-mysql> GRANT ALL PRIVILEGES ON *.* TO 'monty'@'localhost'
-    ->     IDENTIFIED BY 'some_pass' WITH GRANT OPTION;
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'monty'@'localhost' IDENTIFIED BY 'some_pass' WITH GRANT OPTION;
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'monty'@'%'
     ->     IDENTIFIED BY 'some_pass' WITH GRANT OPTION;
 mysql> GRANT RELOAD,PROCESS ON *.* TO 'admin'@'localhost';
 mysql> GRANT USAGE ON *.* TO 'dummy'@'localhost';
 
+// reset root password for 5.7+
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'springjpa';
+mysql> CREATE USER 'spring'@'localhost' IDENTIFIED BY 'bootjpa';
 ** create database
 create database <db>
+** grant user db access
+mysql> GRANT ALL PRIVILEGES ON spring.* TO 'spring'@'localhost';
+to allow remote access
+mysql> GRANT ALL PRIVILEGES ON spring.* TO 'spring'@'%';
 * curl
   - -XPOST use post
   - -i show response header
@@ -335,4 +345,20 @@ sudo chmod +x /opt/Citrix/ICAClient/wfica
 * Emacs
   - start in ubuntu to enable IME
 env LC_CTYPE=zh_CN.UTF-8 emacs
+
+* GIT
+
+** Show difference in two branches
+
+This lists commits with the first line of their messages. It also includes either a < or > arrow at the front of each commit indicating whether the commit is on the left (feature) or right (master) branch, respectively.
+
+#+BEGIN_SRC shell
+git log --left-right --graph --cherry-pick --oneline feature...branch
+#+END_SRC
+** Clean up local branches
+
+#+BEGIN_SRC shell
+git remote prune origin --dry-run
+git remote prune origin
+#+END_SRC
 

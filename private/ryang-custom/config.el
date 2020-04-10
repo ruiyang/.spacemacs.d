@@ -23,7 +23,6 @@
         ("http://feed.codeofrob.com/RobAshton" tech)
         ("http://blog.8thlight.com/feed/atom.xml" tech bob)
         ("http://feeds2.feedburner.com/StuartSierra" tech bob)
-        ("http://www.oursteps.com.au/bbs/forum.php?mod=rss&fid=89&auth=3f702nWzBrApV5bHyKdRBOPcQJqHLck4M5lXD%2F0W%2BG0mOJT7rUWeGhMaCFvIBQ" portal shop)
         ("https://www.thekua.com/atwork/" tech)
         ("http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml" tech emacs)
         ("http://sachachua.com/blog/category/emacs-news/feed/" tech emacs)
@@ -35,16 +34,5 @@
 (subword-mode t)
 
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
-
-(if (equal system-type 'windows-nt)
-    (progn (setq explicit-shell-file-name
-                 "C:/Program Files/Git/bin/sh.exe")
-           (setq shell-file-name "bash")
-           (setq explicit-sh-args '("-login" "-i"))
-           (setq binary-process-input t)
-           (setq w32-quote-process-args ?\")
-           (setq explicit-sh-args '("--login" "-i"))
-           (setenv "SHELL" shell-file-name)
-           (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)))
 
 (add-hook 'clojurescript-mode-hook #'enable-paredit-mode)

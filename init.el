@@ -37,6 +37,9 @@ values."
      yaml
      sql
      ruby
+     shell
+     lsp
+     java
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -50,7 +53,9 @@ values."
      emacs-lisp
      git
      markdown
-     org
+     (org :variables
+          org-enable-roam-support t
+          org-enable-org-journal-support t)
      spell-checking
      syntax-checking
      version-control
@@ -64,7 +69,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(browse-kill-ring elfeed add-node-modules-path restclient company-restclient groovy-mode request markdown-preview-mode exec-path-from-shell)
+   dotspacemacs-additional-packages '(browse-kill-ring elfeed add-node-modules-path restclient company-restclient groovy-mode markdown-preview-mode exec-path-from-shell)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -337,11 +342,26 @@ you should place your code here."
   (setq explicit-shell-file-name "/bin/zsh")
   (setq markdown-command "pandoc")
   (setq markdown-preview-stylesheets (list "http://thomasf.github.io/solarized-css/solarized-light.min.css"))
+  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "p" 'markdown-outline-previous-same-level)
+  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "n" 'markdown-outline-next-same-level)
+  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "P" 'markdown-outline-previous)
+  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "N" 'markdown-outline-next)
 
+
+  (spacemacs/set-leader-keys "nc" 'org-roam-dailies-capture-today)
+  (spacemacs/set-leader-keys "nf" 'org-roam-node-find)
+  (spacemacs/set-leader-keys "ni" 'org-roam-node-insert)
+  (spacemacs/set-leader-keys "ndc" 'org-id-copy)
+  (spacemacs/set-leader-keys "ndu" 'org-id-update-id-locations)
 
   (with-eval-after-load 'org
     ;; here goes your Org config :)
     (setq org-agenda-files `("~/Dropbox/Org/current"))
+    (setq org-roam-directory "~/Dropbox/org-roam")
+    (setq org-roam-v2-ack t)
+    (setq org-roam-completion-everywhere t)
+    (set (make-local-variable 'company-backends)
+         '((company-capf)))
     (setq org-todo-keywords
           (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                   (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
@@ -440,7 +460,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
-   '(impatient-mode helm-css-scss helm helm-core haml-mode counsel-css web-completion-data yapfify yaml-mode ws-butler winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide tagedit sql-indent spaceline smex smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download open-junk-file neotree move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint json-mode js2-refactor js-doc ivy-hydra indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make groovy-mode google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flyspell-correct-ivy flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu emmet-mode elisp-slime-nav elfeed dumb-jump drupal-mode diminish diff-hl define-word cython-mode csv-mode counsel-projectile company-web company-tern company-statistics company-restclient company-anaconda column-enforce-mode coffee-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler browse-kill-ring auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent add-node-modules-path adaptive-wrap ace-window ace-link ac-ispell)))
+   '(org-roam org-journal yapfify yaml-mode ws-butler winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide tagedit sql-indent spaceline smex smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download open-junk-file neotree move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint json-mode js2-refactor js-doc ivy-hydra indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make groovy-mode google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flyspell-correct-ivy flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu emmet-mode elisp-slime-nav elfeed dumb-jump drupal-mode diminish diff-hl define-word cython-mode csv-mode counsel-projectile company-web company-tern company-statistics company-restclient company-anaconda column-enforce-mode coffee-mode clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler browse-kill-ring auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent add-node-modules-path adaptive-wrap ace-window ace-link ac-ispell)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

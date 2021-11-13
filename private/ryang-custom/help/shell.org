@@ -313,6 +313,8 @@ docker rm $(docker ps -a -q)
    - docker ps -a // list all containers
    - docker rm  <CONTAINER ID> // remove a container
    - docker start <CONTAINER ID> // start a container
+** connect to localhost from inside docker
+use host.docker.internal instead of localhost
 * Splunk
 ** Stats on a load of a specific URL
 index="idnex-name" "validate_security" | bucket _time span=1m | stats count by sourcetype,_time
@@ -362,3 +364,30 @@ git remote prune origin --dry-run
 git remote prune origin
 #+END_SRC
 
+* AWS
+** decrypt a encryped blob in mysql db
+
+#+begin_src sql
+select TO_BASE64(access_token),  TO_BASE64(refresh_token)  from `external_auth_token` where id = 25;
+#+end_src
+
+
+#+begin_src shell
+cd /tmp
+echo "<output of secret column>" | base64 -d > rui1.blob
+aws kms decrypt  --ciphertext-blob fileb://rui_refresh.blob --query 'Plaintext' --output text | base64 -d
+#+end_src
+
+
+#+begin_src shell
+curl --location --request POST 'https://identity.xero.com/connect/token' \
+--header 'Authorization: Basic' \
+--form 'grant_type="refresh_token"' \
+--form 'refresh_token="348192287ab5dfaa4d89819b6cf6c82fbcd4ef638fa941a8c6498db88902c43b"'
+#+end_src
+
+* Shell
+** get java process environment variables
+#+begin_src shell
+strings -a /proc/$(ps | grep java | grep -v grep | awk '{print $1}')/environ | sort
+#+end_src

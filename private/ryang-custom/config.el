@@ -16,6 +16,8 @@
 (setq mac-option-key-is-meta nil)
 (setq default-input-method "MacOSX")
 
+(grep-apply-setting 'grep-find-command '("find . -type f -exec grep -i -nH -e  \\{\\} +" . 37))
+
 (setq elfeed-feeds
       '(("http://martinfowler.com/feed.atom" tech)
         ("http://feeds.feedburner.com/SanityInc" tech)
@@ -29,10 +31,6 @@
         ("https://scotthelme.co.uk/rss/" tech security)
         ))
 
-(setq dired-listing-switches "-alh")
+;;(setq dired-listing-switches "-alh")
 
 (subword-mode t)
-
-(add-hook 'clojure-mode-hook #'enable-paredit-mode)
-
-(add-hook 'clojurescript-mode-hook #'enable-paredit-mode)

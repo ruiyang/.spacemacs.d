@@ -20,6 +20,3 @@
 (global-unset-key "\C-x\C-z")
 
 (global-set-key (kbd "C-x C-f") 'ido-find-file)
-
-(global-set-key (kbd "C-M-=") 'text-scale-increase)
-(global-set-key (kbd "C-M--") 'text-scale-decrease)

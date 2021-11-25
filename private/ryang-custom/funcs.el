@@ -44,24 +44,6 @@ by using nxml's indentation rules."
       (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
-(setq help-location "~/.emacs.d/users/help/")
-(setq helps `("magit" "vi" "shell" "org"))
-
-(dolist (x helps)
-  (let (help-func (make-symbol (concat x "-help")))
-    (defun ryang/help-func ()
-      (interactive)
-      (print help-func)
-      (find-file (concat help-location (concat x ".org"))))))
-
-(defun ryang/magit-help ()
-  (interactive)
-  (find-file (concat help-location "magit.org")))
-
-(defun ryang/vi ()
-  (interactive)
-  (find-file "~/.emacs.d/ryang/help/vi.org"))
-
 (defun ryang/shell-help ()
   (interactive)
   (find-file "~/.spacemacs.d/private/ryang-custom/help/shell.org"))
@@ -69,14 +51,6 @@ by using nxml's indentation rules."
 (defun ryang/org-help ()
   (interactive)
   (find-file "~/.spacemacs.d/private/ryang-custom/help/org.org"))
-
-(defun ryang/name ()
-  (interactive)
-  (find-file "~/Dropbox/personal/org/name.org"))
-
-(defun ryang/todo ()
-  (interactive)
-  (find-file "~/Dropbox/Personal/org/todo.org"))
 
 (defun ryang/copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."

@@ -69,7 +69,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(browse-kill-ring elfeed add-node-modules-path restclient company-restclient groovy-mode markdown-preview-mode exec-path-from-shell revive)
+   dotspacemacs-additional-packages '(browse-kill-ring elfeed add-node-modules-path restclient company-restclient groovy-mode markdown-preview-mode exec-path-from-shell desktop+)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -360,10 +360,12 @@ you should place your code here."
   (setq epa-pinentry-mode 'loopback)
   (setq shell-file-name "/usr/local/bin/zsh")
   (setq standard-indent 2)
+  (defvar desktop+-base-dir "~/.emacs.d/desktops/")
+  (if (file-exists-p (concat desktop+-base-dir "d"))
+      (desktop+-load "d"))
+
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
-  (if (file-exists-p "~/.revive.el")
-      (resume))
   (if (string-equal system-type "windows-nt")
       (progn
         (setq projectile-enable-caching t)

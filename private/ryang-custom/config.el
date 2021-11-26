@@ -16,6 +16,7 @@
 (setq mac-option-key-is-meta nil)
 (setq default-input-method "MacOSX")
 
+(require 'grep)
 (grep-apply-setting 'grep-find-command '("find . -type f -exec grep -i -nH -e  \\{\\} +" . 37))
 
 (setq elfeed-feeds

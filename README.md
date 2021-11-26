@@ -2,8 +2,15 @@
 ## Install
 
 ```shell
-// markdown
+# markdown
 brew install pandoc
+
+# Fonts
+brew tap homebrew/cask-fonts
+brew cask install font-source-code-pro
+
+# osx module
+brew install coreutils
 ```
 
 - Firstly clone spacemacs into ~/ folder

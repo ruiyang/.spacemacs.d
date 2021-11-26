@@ -41,7 +41,7 @@ values."
      lsp
      java
      (osx :variables   osx-command-as       'meta
-                       osx-option-as        'meta
+                       osx-option-as        'hyper
                        osx-control-as       'control
                        osx-function-as       nil
                        osx-right-command-as 'left
@@ -62,6 +62,7 @@ values."
      git
      markdown
      (org :variables
+          org-roam-v2-ack t
           org-enable-roam-support t
           org-enable-org-journal-support t)
      spell-checking
@@ -70,7 +71,6 @@ values."
      javascript
      react
      clojure
-;;     ryang-groovy
      ryang-custom
      )
    ;; List of additional packages that will be installed without being
@@ -412,7 +412,6 @@ you should place your code here."
     ;; here goes your Org config :)
     (setq org-agenda-files `("~/Dropbox/Org/current"))
     (setq org-roam-directory "~/Dropbox/org-roam")
-    (setq org-roam-v2-ack t)
     (setq org-roam-completion-everywhere t)
     (set (make-local-variable 'company-backends)
          '((company-capf)))

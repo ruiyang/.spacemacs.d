@@ -1,4 +1,4 @@
-(set-face-attribute 'default nil :height 160)
+(set-face-attribute 'default nil :height 155)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq tab-width 2)
@@ -26,7 +26,3 @@
         ("http://sachachua.com/blog/category/emacs-news/feed/" tech emacs)
         ("https://scotthelme.co.uk/rss/" tech security)
         ))
-
-;;(setq dired-listing-switches "-alh")
-
-(subword-mode t)

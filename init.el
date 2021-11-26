@@ -40,6 +40,14 @@ values."
      shell
      lsp
      java
+     (osx :variables   osx-command-as       'meta
+                       osx-option-as        'meta
+                       osx-control-as       'control
+                       osx-function-as       nil
+                       osx-right-command-as 'left
+                       osx-right-option-as  'left
+                       osx-right-control-as 'left
+                       osx-swap-option-and-command nil)
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or

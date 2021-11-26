@@ -10,11 +10,6 @@
 (setq web-mode-code-indent-offset 2) ; web-mode, js code in html file
 (setq css-indent-offset 2) ; css-mode
 (setq web-mode-attr-indent-offset 2)
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'none)
-(setq mac-command-key-is-meta t)
-(setq mac-option-key-is-meta nil)
-(setq default-input-method "MacOSX")
 
 (require 'grep)
 (grep-apply-setting 'grep-find-command '("find . -type f -exec grep -i -nH -e  \\{\\} +" . 37))

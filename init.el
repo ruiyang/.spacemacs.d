@@ -78,7 +78,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(org-bullets)
+   dotspacemacs-excluded-packages '()
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -319,6 +319,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; visual line mode globally to automatically wrap long text
+  (global-visual-line-mode t)
   ; START TABS CONFIG
   ;; Create a variable for our preferred tab width
   (setq custom-tab-width 2)
@@ -383,9 +385,6 @@ you should place your code here."
                                     :test-suffix "Test")
   (eval-after-load 'js-mode
     '(add-hook 'js-mode-hook #'add-node-modules-path))
-  (setq org-default-notes-file "~/Dropbox/Org/capture.org")
-  (setq org-agenda-files (list "~/Dropbox/Org/note.org"
-                               "~/Dropbox/Org/capture.org"))
 
   (add-hook 'java-mode-hook (lambda ()
                               (setq c-basic-offset 2)))
@@ -399,7 +398,6 @@ you should place your code here."
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "N" 'markdown-outline-next)
 
   (spacemacs/set-leader-keys "aordc" 'org-roam-dailies-capture-today)
-
   (spacemacs/set-leader-keys "nf" 'org-roam-node-find)
   (spacemacs/set-leader-keys "ni" 'org-roam-node-insert)
   (spacemacs/set-leader-keys "ndc" 'org-id-copy)
@@ -413,8 +411,7 @@ you should place your code here."
     (set (make-local-variable 'company-backends)
          '((company-capf)))
     (setq org-todo-keywords
-          (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                  (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+          (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)"))))
     (setq org-todo-keyword-faces
           (quote (("TODO" :foreground "red" :weight bold)
                   ("NEXT" :foreground "blue" :weight bold)
@@ -445,40 +442,31 @@ you should place your code here."
                    "* NEXT %?\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
     ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-    (setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                     (org-agenda-files :maxlevel . 9)
-                                     ("~/Dropbox/Org/technical_note.org" :maxlevel . 9)
-                                     ("~/Dropbox/Org/notes.org" :maxlevel . 9))))
+    ;; (setq org-refile-targets (quote ((nil :maxlevel . 9)
+    ;;                                  (org-agenda-files :maxlevel . 9)
+    ;;                                  ("~/Dropbox/Org/technical_note.org" :maxlevel . 9)
+    ;;                                  ("~/Dropbox/Org/notes.org" :maxlevel . 9))))
 
     ;; Use full outline paths for refile targets - we file directly with IDO
-    (setq org-refile-use-outline-path 'file)
+;;    (setq org-refile-use-outline-path 'file)
 
     ;; Targets complete directly with IDO
-    (setq org-outline-path-complete-in-steps nil)
+;;    (setq org-outline-path-complete-in-steps nil)
 
     ;; Allow refile to create parent tasks with confirmation
-    (setq org-refile-allow-creating-parent-nodes (quote confirm))
+;;    (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
-    ;; Use IDO for both buffer and file completion and ido-everywhere to t
-    (setq org-completion-use-ido t)
-    (setq ido-everywhere t)
-    (setq ido-max-directory-size 100000)
-    (ido-mode (quote both))
-    ;; Use the current window when visiting files and buffers with ido
-    (setq ido-default-file-method 'selected-window)
-    (setq ido-default-buffer-method 'selected-window)
-                                        ; Use the current window for indirect buffer display
-    (setq org-indirect-buffer-display 'current-window)
-    (setq org-agenda-skip-scheduled-if-done t)
+;;    (setq org-indirect-buffer-display 'current-window)
+;;    (setq org-agenda-skip-scheduled-if-done t)
     ;; Refile settings
     ;; Exclude DONE state tasks from refile targets
-    (defun bh/verify-refile-target ()
-      "Exclude todo keywords with a done state from refile targets"
-      (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+    ;; (defun bh/verify-refile-target ()
+    ;;   "Exclude todo keywords with a done state from refile targets"
+    ;;   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
-    (setq org-refile-target-verify-function 'bh/verify-refile-target)
-    (setq org-agenda-dim-blocked-tasks nil)
-    (setq org-agenda-compact-blocks nil)
+    ;; (setq org-refile-target-verify-function 'bh/verify-refile-target)
+    ;; (setq org-agenda-dim-blocked-tasks nil)
+    ;; (setq org-agenda-compact-blocks nil)
     )
   (add-to-list 'auto-mode-alist '("\\.rest\\'" . restclient-mode))
   (require 'company-restclient) 

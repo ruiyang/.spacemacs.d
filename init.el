@@ -310,6 +310,8 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (setq org-agenda-files `("~/Dropbox/Org/current"))
+  (setq org-roam-directory "~/Dropbox/org-roam")
   )
 
 (defun dotspacemacs/user-config ()
@@ -320,7 +322,7 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; visual line mode globally to automatically wrap long text
-  (global-visual-line-mode t)
+;;  (global-visual-line-mode nil)
   ; START TABS CONFIG
   ;; Create a variable for our preferred tab width
   (setq custom-tab-width 2)
@@ -355,17 +357,18 @@ you should place your code here."
   ;; WARNING: This will change your life
   ;; (OPTIONAL) Visualize tabs as a pipe character - "|"
   ;; This will also show trailing characters as they are useful to spot.
-  (setq whitespace-style '(face tabs tab-mark trailing))
-  (custom-set-faces
-   '(whitespace-tab ((t (:foreground "#636363")))))
-                                        ; 124 is the ascii ID for '\|'
-  (setq whitespace-display-mappings
-        '((tab-mark 9 [124 9] [92 9])))
-  (global-whitespace-mode)
-                                        ; Enable whitespace mode everywhere
-                                        ; END TABS CONFIG
+  ;; (setq whitespace-style '(face tabs tab-mark trailing))
+  ;; (custom-set-faces
+  ;;  '(whitespace-tab ((t (:foreground "#636363")))))
+  ;;                                       ; 124 is the ascii ID for '\|'
+  ;; (setq whitespace-display-mappings
+  ;;       '((tab-mark 9 [124 9] [92 9])))
+  ;; (global-whitespace-mode)
+  ;;                                       ; Enable whitespace mode everywhere
+  ;;                                       ; END TABS CONFIG
   (setq epa-pinentry-mode 'loopback)
   (setq shell-file-name "/usr/local/bin/zsh")
+  (define-key shell-mode-map (kbd "C-j") 'ryang/switch-shell-dir)
   (setq standard-indent 2)
   (defvar desktop+-base-dir "~/.emacs.d/desktops/")
   (if (file-exists-p (concat desktop+-base-dir "d"))
@@ -405,8 +408,6 @@ you should place your code here."
 
   (with-eval-after-load 'org
     ;; here goes your Org config :)
-    (setq org-agenda-files `("~/Dropbox/Org/current"))
-    (setq org-roam-directory "~/Dropbox/org-roam")
     (setq org-roam-completion-everywhere t)
     (set (make-local-variable 'company-backends)
          '((company-capf)))

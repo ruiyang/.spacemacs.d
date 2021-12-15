@@ -1,4 +1,6 @@
 ;; make lines unique recursively.
+(require 'cl-lib)
+
 (defun uniquify-all-lines-region (start end)
   "Find duplicate lines in region START to END keeping first occurrence."
   (interactive "*r")
@@ -82,3 +84,42 @@ by using nxml's indentation rules."
 (if (and (fboundp 'server-running-p) 
          (not (server-running-p)))
     (server-start))
+
+(defmacro ->> (&rest body)
+  (let ((result (pop body)))
+    (dolist (form body result)
+      (setq result (append form (list result))))))
+
+(defmacro -> (&rest body)
+  (let ((result (pop body)))
+    (dolist (form body result)
+      (setq result (append (list (car form) result)
+                           (cdr form))))))
+
+(defun ryang/get-dir-depth (path)
+  (let* ((names (split-string path "/"))
+         (names-no-empty (cl-remove-if '(lambda (n)
+                                          (= (length n)
+                                             0))
+                                       names))
+         (path-length (length names-no-empty)))
+    path-length))
+
+(defun ryang/switch-shell-dir ()
+  "Switch the shell directory with autocompletion"
+  (interactive)
+  (let* ((candidates (->> recentf-list
+                     (mapcar 'file-name-directory )
+                     (cl-remove-if '(lambda (f)
+                                      (or (string-match-p (regexp-quote ".") f)
+                                          (> (ryang/get-dir-depth f) 6))
+                                      ))
+                     (delete-dups)))
+         (found (ivy-read "matches " candidates :sort t))
+         (dir found)
+;;         (dir (read-from-minibuffer "" found))
+         )
+    (funcall comint-input-sender
+             (get-buffer-process (current-buffer))
+             (concat "cd " dir))
+    (cd dir)))

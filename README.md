@@ -1,7 +1,9 @@
-# Rui's Spacemacs config
 ## Install
 
 ```shell
+#install developer
+xcode-select --install ## use $ sudo xcode-select --reset if not working
+
 # markdown
 brew install pandoc
 

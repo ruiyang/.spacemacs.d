@@ -152,12 +152,13 @@ values."
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
-   ;; quickly tweak the mode-line size to make separators look not too crappy.
+   ;; QUICKLY Tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 23
+                               :size 30
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
+
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -368,17 +369,24 @@ you should place your code here."
   ;;                                       ; Enable whitespace mode everywhere
   ;;                                       ; END TABS CONFIG
   (setq epa-pinentry-mode 'loopback)
-  (setq shell-file-name "/usr/local/bin/zsh")
+;;  (setq shell-file-name "/usr/local/bin/zsh")
+  (require 'shell)
   (define-key shell-mode-map (kbd "C-j") 'ryang/switch-shell-dir)
   (setq standard-indent 2)
 
-  (setq desktop+-base-dir "~/.emacs.d/desktops/")
+  (setq desktop+-base-dir "~/.spacemacs.d")
   
- (if (file-exists-p (concat desktop+-base-dir "d"))
+  (if (file-exists-p (concat desktop+-base-dir "/desktops"))
      (progn
-       (desktop+-load "d")))
+       (desktop+-load "desktops")))
 
-  (when (memq window-system '(mac ns x))
+ (set-face-attribute 'default nil
+                     :family "Source Code Pro"
+                     :height 220
+                     :weight 'normal
+                     :width 'normal)
+
+ (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
   (if (string-equal system-type "windows-nt")
       (progn
